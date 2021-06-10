@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <navbar class="home-nav"><div slot="center">购物街</div></navbar>
-    <bscroll class="content" :proType='3' ref="scroll" @scroll="getposition">
+    <bscroll class="content" :proType="3" ref="scroll" @scroll="getposition" :pull-up-load="true" @pullingUp="loadmore">
       <home-swiper :banners="banners"></home-swiper>
       <recommend :recommends='recommends'></recommend>
       <feature></feature>
@@ -54,6 +54,14 @@ export default {
     this.gethomegoods('pop')
     this.gethomegoods('new')
     this.gethomegoods('sell')
+    
+  },
+  mounted(){
+    this.$bus.$on('imageload',
+    this.debounce(this.$refs.scroll.refresh
+    ,500),
+    )
+
   },
   methods:{
     gethomemultidata(){
@@ -89,6 +97,30 @@ export default {
        this.isshowbacktop=false
       }
     },
+    /**
+     *降频函数
+     *这个 debounce 函数在给定的时间间隔内只允许你提供的回调函数执行一次，以此降低它的执行频率。
+     *调用:	debounce(function() {}, 250) 
+     * @param {*} func回调函数
+     * @param {*} wait等待时间,推荐250
+     * @param {*} immediate
+     * @returns
+     */
+    debounce(func, wait){
+      let timer =null
+      return function (){
+        if(timer!==null){
+        clearTimeout(timer)
+      }
+      timer = setTimeout(func
+      , wait);
+      }
+    },
+    loadmore(){
+      this.gethomegoods(this.item)
+      this.$refs.scroll.scroll.finishPullUp()
+      console.log(this.item);
+    }
   }
 }
 </script>

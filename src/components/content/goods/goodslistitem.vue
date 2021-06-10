@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-list-item" >
-		<img :src="goodsItem.show.img" class="goods-list-img">
+  <div class="goods-list-item">
+		<img :src="goodsItem.show.img" class="goods-list-img" @load="imageload" >
 		<div class="goods-list-text">
 			<div class="goods-list-name one-txt-cut">{{goodsItem.title}}</div>
 			<div class="goods-list-price">
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </template>
-
+	
 <script>
 export default {
     name:"goodslistitem",
@@ -25,6 +25,14 @@ export default {
   data () {
     return {
     }
+  },
+  methods:{
+	//   clickitem(){
+	// 	this.$router.push('/detail/' + this.goodsItem.iid)
+	//   },
+	  imageload(){
+		  this.$bus.$emit('imageload')
+	  }
   }
 }
 </script>
