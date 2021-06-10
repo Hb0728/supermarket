@@ -4,6 +4,7 @@ import Home from '../views/home/Home.vue'
 import Cart from '../views/Cart/Cart.vue'
 import Category from '../views/category/category.vue'
 import Profile from '../views/profile/profile.vue'
+import Detail from '../views/detail/detail.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,13 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component:Profile
+  },
+  {
+    path: '/detail/:iid',
+    name: 'detail',
+    component:Detail
   }
+  
 ]
 
 const router = new VueRouter({
